@@ -310,6 +310,23 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 .scalebar b{color:var(--signal);font-weight:600}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-100%)}}
 
+
+/* ---------- video ---------- */
+.video-wrap{width:100%;max-width:1000px;margin:0 auto;position:relative;z-index:1}
+.yt{position:relative;display:block;width:100%;aspect-ratio:16/9;background:#0F2B25;overflow:hidden;cursor:pointer;border:0;padding:0}
+.yt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease,opacity .3s ease}
+.yt::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,43,37,0) 55%,rgba(15,43,37,.55));pointer-events:none}
+.yt .play{position:absolute;left:50%;top:50%;z-index:2;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;
+  background:var(--signal);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .25s ease}
+.yt .play svg{width:30px;height:30px;margin-left:5px;fill:#fff}
+.yt .yt-label{position:absolute;left:1rem;bottom:.85rem;z-index:2;color:#fff;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+@media(hover:hover){.yt:hover img{transform:scale(1.03)}.yt:hover .play{transform:scale(1.08)}}
+.yt:focus-visible{outline:3px solid var(--signal);outline-offset:3px}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-note{margin-top:1.1rem;font-size:.85rem;color:rgba(15,43,37,.62);text-align:center}
+.video-note a{color:var(--signal);font-weight:600;text-decoration:none;border-bottom:1px solid currentColor}
+@media(max-width:640px){.yt .play{width:64px;height:64px;margin:-32px 0 0 -32px}.yt .play svg{width:24px;height:24px}}
+
 /* ---------- sections : satu layanan = satu layar penuh ---------- */
 section.screen{
   min-height:100vh;
@@ -844,6 +861,7 @@ footer{
       <a href="#digitization" data-i18n="nav_digit">Digitasi</a>
       <a href="#contour" data-i18n="nav_contour">Kontur</a>
       <a href="#census" data-i18n="nav_census">Sensus</a>
+      <a href="#video" data-i18n="nav_video">Video</a>
       <a href="#contact" data-i18n="nav_contact">Kontak</a>
     </nav>
     <div class="lang-switch" role="group" aria-label="Language">
@@ -1051,6 +1069,29 @@ footer{
   </div>
 </section>
 
+<!-- ============ VIDEO ============ -->
+<section id="video" class="screen" style="background:#fff">
+  <div class="section-head reveal">
+    <div class="coordline">
+      <p class="eyebrow" data-i18n="v_eyebrow">Perkenalan Jasa</p>
+    </div>
+    <h2><small data-i18n="v_small">Video</small><span data-i18n="v_title">Drone Sarana Nusantara</span></h2>
+    <p class="section-sub" data-i18n="v_sub">Perkenalan singkat jasa pemetaan drone untuk kebun sawit: digitasi, kontur, serta sensus pohon dan titik tanam.</p>
+  </div>
+  <div class="video-wrap reveal">
+    <div class="map-frame">
+      <span class="ticks" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <button type="button" class="yt" id="yt" data-id="zsF-rX0QJxo" aria-label="Putar video">
+        <img src="https://i.ytimg.com/vi/zsF-rX0QJxo/maxresdefault.jpg" alt="" loading="lazy" decoding="async"
+             onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='https://i.ytimg.com/vi/zsF-rX0QJxo/hqdefault.jpg'}">
+        <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="yt-label" data-i18n="v_label">Putar video</span>
+      </button>
+    </div>
+    <p class="video-note"><span data-i18n="v_note">Tidak bisa diputar?</span> <a href="https://youtu.be/zsF-rX0QJxo" target="_blank" rel="noopener noreferrer" data-i18n="v_link">Tonton di YouTube</a></p>
+  </div>
+</section>
+
 <!-- ============ QUOTE ============ -->
 <section class="quote screen">
   <div class="contour-scroll" aria-hidden="true">
@@ -1195,7 +1236,10 @@ footer{
 /* =============== i18n : ID / EN dengan deteksi bahasa browser =============== */
 const I18N = {
   id: {
-    nav_digit:"Digitasi", nav_contour:"Kontur", nav_census:"Sensus", nav_contact:"Kontak",
+    nav_digit:"Digitasi", nav_contour:"Kontur", nav_census:"Sensus", nav_video:"Video", nav_contact:"Kontak",
+    v_eyebrow:"Perkenalan Jasa", v_small:"Video", v_title:"Drone Sarana Nusantara",
+    v_sub:"Perkenalan singkat jasa pemetaan drone untuk kebun sawit: digitasi, kontur, serta sensus pohon dan titik tanam.",
+    v_label:"Putar video", v_note:"Tidak bisa diputar?", v_link:"Tonton di YouTube", v_aria:"Putar video",
     hero_eyebrow:"Pemetaan Drone · GIS · Fotogrametri",
     hero_bio:"Spesialis GIS di RGE Group, berpengalaman dalam pemantauan topografi & strategi drainase, 7+ proyek pemetaan selesai.",
     cred_apdi:"Pilot Drone Bersertifikat APDI",
@@ -1242,7 +1286,10 @@ const I18N = {
     title:"Edward Pascalino — Drone Mapping & GIS Specialist"
   },
   en: {
-    nav_digit:"Digitization", nav_contour:"Contour", nav_census:"Census", nav_contact:"Contact",
+    nav_digit:"Digitization", nav_contour:"Contour", nav_census:"Census", nav_video:"Video", nav_contact:"Contact",
+    v_eyebrow:"Service Introduction", v_small:"Video", v_title:"Drone Sarana Nusantara",
+    v_sub:"A short introduction to drone mapping services for oil palm plantations: digitization, contours, and palm census with planting points.",
+    v_label:"Play video", v_note:"Can\u2019t play it?", v_link:"Watch on YouTube", v_aria:"Play video",
     hero_eyebrow:"Drone Mapping · GIS · Photogrammetry",
     hero_bio:"GIS Specialist at RGE Group, experienced in topographic monitoring & drainage strategy, 7+ completed mapping projects.",
     cred_apdi:"APDI Certified Drone Pilot",
@@ -1301,6 +1348,7 @@ function setLang(lang){
     const k = el.getAttribute('data-i18n');
     if(t[k] !== undefined) el.textContent = t[k];
   });
+  const ytb = document.getElementById('yt'); if(ytb && ytb.hasAttribute('aria-label') && t.v_aria) ytb.setAttribute('aria-label', t.v_aria);
   document.querySelectorAll('[data-i18n-html]').forEach(el=>{
     const k = el.getAttribute('data-i18n-html');
     if(t[k] !== undefined) el.innerHTML = t[k];
@@ -1464,6 +1512,24 @@ window.addEventListener('scroll', ()=>{
   const max = d.scrollHeight - window.innerHeight;
   progEl.style.width = (max > 0 ? (d.scrollTop / max) * 100 : 0) + '%';
 },{passive:true});
+
+
+/* =============== video YouTube: muat iframe hanya saat diklik =============== */
+(function(){
+  const yt = document.getElementById('yt');
+  if(!yt) return;
+  yt.addEventListener('click', ()=>{
+    if(yt.querySelector('iframe')) return;
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + yt.dataset.id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    f.title = 'Video Drone Sarana Nusantara';
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    f.allowFullscreen = true;
+    f.referrerPolicy = 'strict-origin-when-cross-origin';
+    yt.innerHTML = ''; yt.appendChild(f);
+    yt.style.cursor = 'default'; yt.removeAttribute('aria-label');
+  });
+})();
 
 /* =============== scrollspy: sorot menu sesuai section aktif =============== */
 (function(){
